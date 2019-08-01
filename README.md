@@ -16,3 +16,11 @@ Source code ASP.NET Core 2.2 khóa ngày 27/06/2019
 ## Buổi 4 (06/07/2019): jQuery
 
 ## Buổi 5 (11/07/2019): BootStrap 4
+
+## Buổi 10 (23/07/2019): jQuery Validation
+
+## Buổi 11 (25/07/2019): Layout
+
+## Buổi 12 (27/07/2019): SQL Basic
+
+## Buổi 13 (01/08/2019): SQL Advanced
