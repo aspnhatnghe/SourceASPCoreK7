@@ -1,0 +1,11 @@
+﻿{
+  "Ten": "Trung tâm CNTT Nhất Nghệ",
+  "Nam": 2003,
+  "MyConfig": {
+    "Config1": "ASP.NET Core 2.2",
+    "Config2": 4000000
+  },
+  "ConnectionStrings": {
+    "DB1":  "Server=.; Database=MyeStore; Integrated Security=True"
+  }
+}
