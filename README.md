@@ -31,7 +31,30 @@ Source code ASP.NET Core 2.2 khóa ngày 27/06/2019
 ## Buổi 10 (23/07/2019): jQuery Validation
 
 ## Buổi 11 (25/07/2019): Layout
+* @RenderBody(), @RenderSection()
+* PartialView
+* ViewComponent
+* Area
 
 ## Buổi 12 (27/07/2019): SQL Basic
-
+* DDL(Data Definition Language):
+  *  CREATE, ALTER, DROP, TRUNCATE, RENAME
+* DML(Data Manipulation Language)
+  *  INSERT, UPDATE, DELETE, SELECT
+  
 ## Buổi 13 (01/08/2019): SQL Advanced
+* View, Store procedure, function, trigger
+* TCL(transaction Control Language)
+  *  COMMIT, ROLLBACK, SET TRANSACTION
+
+## Buổi 14 (03/08/2019): ADO.NET
+* CRUD with ADO.NET
+  *  Prepare data: Table, Store procedure
+  *  Create Data Model 
+  *  Create Data Access Layer
+  *  Create Controller/Action with View to CRUD
+  
+## Buổi 15 (06/08/2019): Intro EF Core
+* Intro EF Core
+* EF Core - Core first
+* EF Core - Database first
