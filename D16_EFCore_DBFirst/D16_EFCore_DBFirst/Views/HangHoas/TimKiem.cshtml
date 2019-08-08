@@ -1,0 +1,30 @@
+﻿@model IEnumerable<HangHoaView>
+@{
+    ViewData["Title"] = "TimKiem";
+    var dsHangHoa = (Model != null) ? Model : new List<HangHoaView>();
+}
+
+<h1>Tìm Kiếm</h1>
+<form asp-action="Search" class="container">
+    Tìm : <input name="TuKhoa" placeholder="Tìm gì?" />
+    Giá từ: <input name="GiaTu" type="number" min="0" step="0.01" />
+    đến: <input name="GiaDen" type="number" min="0" step="0.01" />
+    <button>Tìm kiếm</button>
+</form>
+
+<table>
+    <tbody>
+        @foreach (var hh in dsHangHoa)
+        {
+            <tr>
+                <td>@hh.MaHh</td>
+                <td>@hh.TenHh</td>
+                <td>@hh.DonGia</td>
+                <td>@hh.GiamGia</td>
+                <td>@hh.GiaBan</td>
+                <td>@hh.Loai</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
