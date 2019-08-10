@@ -62,13 +62,16 @@ Source code ASP.NET Core 2.2 khóa ngày 27/06/2019
 ## Buổi 16 (08/08/2019): EF Core - Database First
 
 ## Buổi 17 (10/08/2019): EF Core - Database First
-//1. Cài Nuget AutoMapper dành .NET Core
+	//1. Cài Nuget AutoMapper dành .NET Core
+
 	AutoMapper.Extensions.Microsoft.DependencyInjection
 
-//2. Mở hàm ConfigureServices(), thêm khai báo
+	//2. Mở hàm ConfigureServices(), thêm khai báo
+
 	services.AddAutoMapper();
 
-//3. Định nghĩa bộ map
+	//3. Định nghĩa bộ map
+
 	public class MappingProfile : Profile
 	{
 		public MappingProfile()
@@ -80,7 +83,8 @@ Source code ASP.NET Core 2.2 khóa ngày 27/06/2019
 		}
 	}
 
-//4. Ở đâu xài thì khai báo service
+	//4. Ở đâu xài thì khai báo service
+
 	public class XYZ
 	{
 		private readonly IMapper _mapper;
