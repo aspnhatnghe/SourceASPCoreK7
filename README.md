@@ -63,42 +63,36 @@ Source code ASP.NET Core 2.2 khóa ngày 27/06/2019
 
 ## Buổi 17 (10/08/2019): EF Core - Database First
 //1. Cài Nuget AutoMapper dành .NET Core
-AutoMapper.Extensions.Microsoft.DependencyInjection
+	AutoMapper.Extensions.Microsoft.DependencyInjection
 
 //2. Mở hàm ConfigureServices(), thêm khai báo
-services.AddAutoMapper();
+	services.AddAutoMapper();
 
 //3. Định nghĩa bộ map
-public class MappingProfile : Profile
-{
-    public MappingProfile()
-    {
-        CreateMap<User, UserDto>();
-        CreateMap<UserDto, User>();
-	//Map 2 chiều
-        //CreateMap<User, UserDto>().ReverseMap();
-    }
-}
+	public class MappingProfile : Profile
+	{
+		public MappingProfile()
+		{
+			CreateMap<User, UserDto>();
+			CreateMap<UserDto, User>();
+		//Map 2 chiều
+			//CreateMap<User, UserDto>().ReverseMap();
+		}
+	}
 
 //4. Ở đâu xài thì khai báo service
-public class XYZ
-{
-	private readonly IMapper _mapper;
-	public XYZ(IMapper map)
+	public class XYZ
 	{
-		_mapper = map;
+		private readonly IMapper _mapper;
+		public XYZ(IMapper map)
+		{
+			_mapper = map;
+		}
+
+		//sử dụng
+		public void ABC()
+		{
+			var des = _mapper.Map<TDes>(source);
+			var hhv = _mapper.Map<HangHoaViewModel>(hangHoa);
+		}
 	}
-
-	//sử dụng
-	public void ABC()
-	{
-		var des = _mapper.Map<TDes>(source);
-		var hhv = _mapper.Map<HangHoaViewModel>(hangHoa);
-	}
-}
-
-
-
-
-
-
