@@ -1,0 +1,10 @@
+﻿@model IEnumerable<NhaCungCap>
+<h2 class="text-primary">BRANDS</h2>
+<div class="list-group">
+    @foreach (var lo in Model)
+    {
+        <a class="list-group-item" asp-action="List" asp-controller="HangHoa" asp-route-nhacc="@lo.MaNcc">
+            @lo.TenCongTy
+        </a>
+    }
+</div>
