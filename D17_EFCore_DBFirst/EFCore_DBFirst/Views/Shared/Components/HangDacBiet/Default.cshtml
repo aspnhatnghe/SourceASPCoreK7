@@ -1,0 +1,10 @@
+﻿@model IEnumerable<EFCore_DBFirst.ViewModels.HangHoaViewModel>
+
+<div class="container">
+    @foreach (var hh in Model)
+    {
+        <a asp-action="Detail" asp-controller="HangHoa" asp-route-id="@hh.MaHh">
+            <img src="~/Hinh/HangHoa/@hh.Hinh" height="80" alt="@hh.TenHh" />
+        </a>
+    }
+</div>

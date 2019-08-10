@@ -47,6 +47,7 @@
                 @await Component.InvokeAsync("NhaCungCap")
             </aside>
             <div class="col-9">
+                @await Component.InvokeAsync("HangDacBiet", new {SoLuong = 7 })
                 @RenderBody()
             </div>
         </main>

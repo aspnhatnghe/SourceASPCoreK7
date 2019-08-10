@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using EFCore_DBFirst.Models;
+using EFCore_DBFirst.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EFCore_DBFirst.Controllers
@@ -10,9 +12,10 @@ namespace EFCore_DBFirst.Controllers
     public class HangHoaController : Controller
     {
         private readonly MyeStoreContext _context;
-        public HangHoaController(MyeStoreContext db)
+        private readonly IMapper _mapper;
+        public HangHoaController(MyeStoreContext db, IMapper mapper)
         {
-            _context = db;
+            _context = db; _mapper = mapper;
         }
 
         public IActionResult List(int loai, string nhacc)
@@ -27,7 +30,9 @@ namespace EFCore_DBFirst.Controllers
                 dsHangHoa = dsHangHoa.Where(p => p.MaNcc == nhacc);
             }
 
-            return View(dsHangHoa);
+            var data = _mapper.Map<List<HangHoaViewModel>>(dsHangHoa.ToList());
+
+            return View(data);
         }
     }
 }

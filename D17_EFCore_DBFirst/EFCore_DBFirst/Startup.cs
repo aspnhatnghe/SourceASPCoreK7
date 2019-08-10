@@ -40,7 +40,7 @@ namespace EFCore_DBFirst
             services.AddDbContext<MyeStoreContext>(option => option.UseSqlServer(Configuration.GetConnectionString("MyeStore")));
 
             //using AutoMapper;
-            //services.AddAutoMapper();
+            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
