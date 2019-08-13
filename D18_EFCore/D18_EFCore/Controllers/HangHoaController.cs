@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using D18_EFCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace D18_EFCore.Controllers
 {
@@ -84,5 +85,33 @@ namespace D18_EFCore.Controllers
             return Json(data);
         }
         #endregion
+
+        //Unit of Work/Res
+
+        public IActionResult DemoSQL()
+        {
+            var data = _context.HangHoa
+                .FromSql("SELECT * FROM HangHoa WHERE DonGia BETWEEN 5 AND 1000")
+                .ToList();
+
+            return Json(data);
+        }
+
+        public IActionResult DemoSQL1()
+        {
+            var data = _context.Query<HangHoaView>()
+                .FromSql("SELECT MaHH, TenHH, DonGia FROM HangHoa WHERE DonGia BETWEEN 50 AND 1000")
+                .ToList();
+
+            var data_x = _context.HangHoa
+                .Where(p=> p.DonGia >= 50 && p.DonGia <= 1000)
+                .Select(p=> new HangHoaView {
+                    MaHh = p.MaHh,
+                    TenHh = p.TenHh,
+                    DonGia = p.DonGia.Value
+                });
+
+            return Json(data);
+        }
     }
 }

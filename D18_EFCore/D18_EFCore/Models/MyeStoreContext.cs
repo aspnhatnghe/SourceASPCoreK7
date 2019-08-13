@@ -15,6 +15,7 @@ namespace D18_EFCore.Models
         {
         }
 
+        ///public virtual DbSet<HangHoaView> HangHoaViews { get; set; }
         public virtual DbSet<BanBe> BanBe { get; set; }
         public virtual DbSet<ChiTietHd> ChiTietHd { get; set; }
         public virtual DbSet<ChuDe> ChuDe { get; set; }
