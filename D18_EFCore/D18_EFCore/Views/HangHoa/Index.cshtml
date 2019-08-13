@@ -1,0 +1,41 @@
+﻿@model IEnumerable<HangHoa>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Danh sách Hàng hóa</h1>
+<div class="text-danger">Trang: @ViewBag.TrangHienTai/@ViewBag.TongSoTrang</div>
+Trang
+<select id="page" name="page">
+    @for (var p = 0; p < ViewBag.TongSoTrang; p++)
+    {
+        <option value="@(p+1)">
+            @(p + 1)
+        </option>
+    }
+</select>
+@section Scripts{
+    <script>
+        $(function(){
+            //chọn trang hiện tại
+            $("#page").val(@ViewBag.TrangHienTai);
+            //gắn sự kiện thay đổi giá trị chọn
+            $("#page").change(function () {
+                // /HangHoa/Index?page=x
+                window.location.href = "/HangHoa/Index?page=" + $(this).val();
+            });
+        });
+    </script>
+}
+
+<div class="row">
+    @foreach (var hh in Model)
+    {
+        <div class="col-4 text-center">
+            <img src="~/Hinh/HangHoa/@hh.Hinh" height="80" />
+            <h4>@hh.MaHh - @hh.TenHh</h4>
+            <h5>@hh.DonGia.Value.ToString("#,##0")</h5>
+        </div>
+    }
+</div>
+
