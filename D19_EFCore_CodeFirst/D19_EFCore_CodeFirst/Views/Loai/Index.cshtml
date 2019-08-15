@@ -1,0 +1,144 @@
+﻿@model IEnumerable<D19_EFCore_CodeFirst.Models.Loai>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.css" rel="stylesheet" />
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="CreateOrEdit">Tạo mới</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaLoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenLoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MoTa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hinh)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.MaLoai
+                </td>
+                <td>
+                    @item.TenLoai
+                </td>
+                <td>
+                    @item.MoTa
+                </td>
+                <td>
+                    <img src="" />
+                </td>
+                <td>
+                    <a asp-action="CreateOrEdit" asp-route-id="@item.MaLoai" class="btn btn-success">Sửa</a>
+                    <a asp-action="Delete" asp-route-id="@item.MaLoai" class="btn btn-danger">Xóa</a>
+                    <button type="button" class="btn btn-success sua-loai" data-maloai="@item.MaLoai" >Sửa</button>
+                    <button type="button" 
+                            data-maloai="@item.MaLoai" 
+                            data-tenloai="@item.TenLoai"
+                            class="btn btn-danger xoa-loai">Xóa Ajax</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" id="modal-body">
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.js"></script>
+    <script>
+        $(function () {
+            $(".sua-loai").click(function () {
+                var maLoai = $(this).data("maloai");
+                $.ajax({
+                    url: "/Loai/Sua",
+                    type: "GET",
+                    data: { id: maLoai },
+                    success: function (res) {
+                        $("#modal-body").html(res);
+                        $("#myModal").modal('show');
+                    }
+                });
+            });
+            //gắn sự kiện cho nút Xóa Ajax
+            $(".xoa-loai").click(function () {
+                //var traloi = confirm("Chắc xóa không?");
+                var tenLoai = $(this).data("tenloai");
+                var maLoai = $(this).data("maloai");
+                var dongChon = $(this).closest("tr");
+                Swal.fire({
+                    title: 'Xác nhận?',
+                    html: '<h2>Chắc xóa <span class="text-danger">' + tenLoai + '</span> không?</h2>',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xóa ngay',
+                    cancelButtonText: "Hủy"
+                }).then((result) => {
+                    if (result.value) {
+                        //gửi ajax lên server xử lý
+                        $.ajax({
+                            url: "/Loai/DeleteAjax",
+                            data: {
+                                id: maLoai
+                            },
+                            type: "GET",
+                            success: function (response) {
+                                console.log(response);
+                                if (response.status == 2) {
+                                    dongChon.remove();
+                                    Swal.fire({
+                                        type: 'succes',
+                                        title: 'Thông báo',
+                                        text: response.message
+                                    })
+                                }
+                                else if (response.status == 1) {
+                                    Swal.fire({
+                                        type: 'error',
+                                        title: 'Lỗi',
+                                        text: response.message
+                                    })
+                                }
+                            }
+                        });
+                    }
+                })
+            });
+        });
+    </script>
+}
