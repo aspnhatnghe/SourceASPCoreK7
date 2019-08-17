@@ -29,5 +29,37 @@ namespace D20_Ajax.Controllers
                 .Where(hh => hh.TenHh.ToLower().Contains(keyword));
             return PartialView(data);
         }
+
+        public IActionResult TimKiem()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SearchJson(string TuKhoa, double GiaTu, double GiaDen)
+        {
+            var data = _context.HangHoa
+                .Include(hh => hh.MaLoaiNavigation)
+                .AsQueryable();
+            if(!string.IsNullOrEmpty(TuKhoa))
+            {
+                data = data.Where(hh => hh.TenHh.Contains(TuKhoa));
+            }
+            if(GiaTu > 0)
+            {
+                data = data.Where(hh => hh.DonGia >= GiaTu);
+            }
+            if (GiaDen > 0)
+            {
+                data = data.Where(hh => hh.DonGia <= GiaDen);
+            }
+
+            var result = data.Select(hh => new {
+                TenHh = hh.TenHh,
+                DonGia = hh.DonGia,
+                Loai = hh.MaLoaiNavigation.TenLoai
+            });
+            return Json(result);
+        }
     }
 }

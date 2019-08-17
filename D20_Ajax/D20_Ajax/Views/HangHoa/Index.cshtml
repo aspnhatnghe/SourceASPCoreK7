@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<link href="~/css/HangHoa.css" rel="stylesheet" />
+<h1>Danh sách Hàng hóa</h1>
+<div id="result"></div>
+
+@section Scripts{
+    <script>
+        var tongSoTrang = @ViewBag.TongSoTrang;
+        var trangHienTai = 1;
+
+        function loadMore(pageIndex) {
+            $.ajax({
+                url: "/HangHoa/LoadPage",
+                data: { page: pageIndex },
+                success: function (dataResponse) {
+                    $("#result").append(dataResponse);
+                }
+            });
+        }
+
+        loadMore(trangHienTai - 1);
+
+        $(function () {
+            //dựa vào sự kiện scroll chuột xuống đáy
+            $(window).scroll(function () {
+                //.scrollTop() + .height() + 50 > height
+                if (trangHienTai < tongSoTrang) {
+                    trangHienTai++;
+                    loadMore(trangHienTai - 1);
+                }
+            });
+        });
+    </script>
+}
+
