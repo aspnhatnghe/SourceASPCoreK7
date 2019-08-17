@@ -100,3 +100,9 @@ Source code ASP.NET Core 2.2 khóa ngày 27/06/2019
 			var hhv = _mapper.Map<HangHoaViewModel>(hangHoa);
 		}
 	}
+
+## Buổi 18 (13/08/2019): EF Core - Database First
+
+## Buổi 19 (15/08/2019): EF Core - Code First
+
+## Buổi 20 (17/08/2019): Session
