@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewData["Title"] = "Tìm Kiem";
+}
+
+<h2>Tìm kiếm hàng hóa</h2>
+<div>Theo tên <input type="text" id="txtTen" placeholder="Nhập tên" /></div>
+<div>
+    Giá từ <input type="number" min="0" id="txtGiaTu" />
+    đến <input type="number" min="0" id="txtGiaDen" />
+    <input type="button" id="btnTim" value="Tìm" />
+</div>
+<h2>Kết quả</h2>
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên hàng hóa</th>
+            <th>Đơn giá</th>
+            <th>Loại</th>
+        </tr>
+    </thead>
+    <tbody id="content"></tbody>
+</table>
+@section Scripts{
+    <script>
+        $(function () {
+            $("#btnTim").click(function () {
+                $("#content").html("");
+                $.ajax({
+                    url: "/Ajax/SearchJson",
+                    data: {
+                        TuKhoa: $("#txtTen").val(),
+                        GiaTu: $("#txtGiaTu").val(),
+                        GiaDen: $("#txtGiaDen").val()
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        console.log(data);
+                        //duyệt qua từng phần tử trong danh sách trả về
+                        $(data).each(function (index, item) {
+                            var tr = $("<tr/>");
+
+                            $("<td/>").html(index + 1).appendTo(tr);
+                            $("<td/>").html(item.tenHh).appendTo(tr);
+                            $("<td/>").html(item.donGia).appendTo(tr);
+                            $("<td/>").html(item.loai).appendTo(tr);
+
+                            $("#content").append(tr);
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+

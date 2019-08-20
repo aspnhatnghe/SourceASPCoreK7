@@ -105,4 +105,6 @@ Source code ASP.NET Core 2.2 khóa ngày 27/06/2019
 
 ## Buổi 19 (15/08/2019): EF Core - Code First
 
-## Buổi 20 (17/08/2019): Session
+## Buổi 20 (17/08/2019): jQuery AJAX
+
+## Buổi 21 (20/08/2019): Session
