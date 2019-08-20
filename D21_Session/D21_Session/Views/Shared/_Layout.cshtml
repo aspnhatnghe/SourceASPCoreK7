@@ -13,7 +13,7 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -27,7 +27,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 ml-auto">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -35,6 +35,33 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+                    <!--Menu Login/Logout-->
+                    @using Microsoft.AspNetCore.Http
+                    @using D21_Session.Helpers
+                    @{
+                        KhachHang khachHang = Context.Session.Get<KhachHang>("KhachHang");
+                    }
+                    <ul class="navbar-nav">
+                        @if (khachHang == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="KhachHang" asp-action="Register">Đăng ký</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="KhachHang" asp-action="Login">Đăng nhập</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">Chào
+                                <a class="nav-link text-dark" asp-area="" asp-controller="KhachHang" asp-action="Profile">@khachHang.HoTen</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="KhachHang" asp-action="Logout">Đăng xuất</a>
+                            </li>
+                        }
+                    </ul>
+                    <!--/Menu Login/Logout-->
                 </div>
             </div>
         </nav>

@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewData["Title"] = "DemoSession";
+}
+
+<h1>Get Session</h1>
+@using Microsoft.AspNetCore.Http
+@using D21_Session.Helpers
+<h2>@Context.Session.GetString("Ten")</h2>
+<h2>@Context.Session.GetInt32("Nam")</h2>
+@{ 
+    Loai lo = Context.Session.Get<Loai>("Loai");
+}
+@if(lo != null)
+{
+    <h3>@lo.MaLoai - @lo.TenLoai - @lo.MoTa</h3>
+}

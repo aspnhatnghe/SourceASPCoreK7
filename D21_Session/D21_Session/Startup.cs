@@ -42,6 +42,9 @@ namespace EFCore_DBFirst
                 //thời gian Timeout 5p
                 options.IdleTimeout = TimeSpan.FromMinutes(5);
             });
+
+
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EFCore_DBFirst.Models;
+using Microsoft.AspNetCore.Http;
+using D21_Session.Helpers;
 
 namespace EFCore_DBFirst.Controllers
 {
@@ -24,6 +26,24 @@ namespace EFCore_DBFirst.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult DemoSession()
+        {
+            //Tạo Session
+            HttpContext.Session.SetString("Ten", "Nhất Nghệ");
+            HttpContext.Session.SetInt32("Nam", 2003);
+
+            Loai lo = new Loai
+            {
+                MaLoai = 1000,
+                TenLoai = "Bia",
+                MoTa = "Các loại bia"
+            };
+            //nhớ chèn namespace Project.Helpers
+            HttpContext.Session.Set<Loai>("Loai", lo);
+
+            return View();
         }
     }
 }
