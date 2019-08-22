@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using D22_DemoIdentity.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace D22_DemoIdentity.Controllers
 {
@@ -24,6 +25,12 @@ namespace D22_DemoIdentity.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Authorize]
+        public IActionResult Profile()
+        {
+            return View();
         }
     }
 }
