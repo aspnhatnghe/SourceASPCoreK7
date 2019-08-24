@@ -1,0 +1,20 @@
+﻿@model IEnumerable<D20_Ajax.Models.HangHoaViewModel>
+
+@foreach (var hh in Model)
+{
+    <div class="hh-box">
+        <img src="~/Hinh/HangHoa/@hh.Hinh" class="hh-img" />
+        <img src="~/images/moi-icon.png" class="hh-icon" />
+        <div class="hh-price">@hh.DonGia.ToString("#,##0") đ</div>
+        <div class="hh-actions">
+            <a asp-controller="Cart" asp-action="AddToCart" asp-route-maHh="@hh.MaHh">
+                <img src="~/images/Basket.png" />
+            </a>
+            <img src="~/images/Letter.png" />
+            <img src="~/images/favourites.png" />
+        </div>
+        <div class="hh-name">@hh.TenHh</div>
+    </div>
+}
+
+
