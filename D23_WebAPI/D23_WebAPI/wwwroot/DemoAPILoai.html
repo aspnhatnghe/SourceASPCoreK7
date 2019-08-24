@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Demo API Loai</title>
+    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+
+</head>
+<body>
+    <div class="container">
+        <h2>Danh sách Loại</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <td>Tên loại</td>
+                    <td>Mô tả</td>
+                    <td>Hình</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody id="tblLoai"></tbody>
+        </table>
+        <button id="btnThem" type="button" class="btn btn-info">Thêm</button>
+    </div>
+    <script>
+        var apiUri = "/api/Loai";
+        
+        $(function () {
+            $("#btnThem").click(function () {
+                var loai = new Object();
+                loai.tenLoai = "Bia";
+                loai.moTa = "Bia tươi";
+                loai.hinh = "N/A";
+
+                $.ajax({
+                    url: apiUri,
+                    type: "post",
+                    data: JSON.stringify(loai),
+                    contentType: "application/json",
+                    success: function (item) {
+                        alert("Vừa tạo loại " + item.tenLoai + " - " + item.maLoai);
+                    },
+                    error: function (xhr, option, errMess) {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Lỗi...',
+                            text: errMess
+                        })
+                    }
+                });
+            });
+
+            //định nghĩa sự kiện xóa
+            function AddEventForDelete(delButton) {
+                
+                $(delButton).click(function () {
+                    var row = $(this).closest("tr");
+
+                    var maloai = $(this).data("ma-loai");
+                    var tenloai = $(this).data("ten-loai");
+                    Swal.fire({
+                        title: 'Xác nhận xóa?',
+                        html: "Bạn chắc xóa loại <span class='text-danger'>" + tenloai + "</span>",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Xóa ngay!',
+                        cancelButtonText: 'Hủy'
+                    }).then((result) => {
+                        if (result.value) {
+                            //gọi API để xóa
+                            $.ajax({
+                                url: apiUri + "/" + maloai,
+                                type: "delete",
+                                success: function () {
+                                    Swal.fire("Xóa thành công", "", "success");
+                                    row.remove();
+                                },
+                                error: function (xhr, option, errMess) {
+                                    Swal.fire({
+                                        type: 'error',
+                                        title: 'Lỗi...',
+                                        text: errMess
+                                    })
+                                }
+                            });
+                        }
+                    })
+                });
+            }
+
+            //lấy danh sách loại
+            $.ajax({
+                url: apiUri,
+                success: function (data) {
+                    $(data).each(function (index, item) {
+                        var tr = $("<tr/>");
+                        $("<td/>").html(item.tenLoai).appendTo(tr);
+                        $("<td/>").html(item.moTa).appendTo(tr);
+                        $("<td/>").html(item.hinh).appendTo(tr);
+                        var edit = $("<button/>").attr("type", "button").attr("class", "btn btn-success").html("Sửa");
+                        var del = $("<button/>").attr("type", "button").attr("class", "btn btn-danger").html("Xóa");
+                        edit.attr("data-ma-loai", item.maLoai);
+                        del.attr("data-ma-loai", item.maLoai);
+                        del.attr("data-ten-loai", item.tenLoai);
+                        //gắn sự kiện cho 2 button
+                        AddEventForDelete(del);
+
+                        $("<td/>").append(edit).append(del).appendTo(tr);
+
+                        
+
+                        $("#tblLoai").append(tr);
+                    });
+                },
+                error: function (xhr, option, errMess) {
+                    Swal.fire({
+                        type: 'error',
+                        title: 'Lỗi...',
+                        text: errMess
+                    })
+                }
+            });
+        });
+    </script>
+</body>
+</html>
